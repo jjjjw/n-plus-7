@@ -1,5 +1,5 @@
 {
-  "name": "nPlus7",
+  "name": "n-plus-7",
   "version": "0.0.1",
   "author": "JJ Weber",
   "description": "A implementation of Lescure's n+7 technique.",
@@ -9,12 +9,9 @@
       "email": "jj.weber@gmail.com"
     }
   ],
-  "bin": {
-    "nPlus7": "./bin/nPlus7"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oncemoreification/nPlus7"
+    "url": "https://github.com/oncemoreification/n-plus-7"
   },
   "keywords": [
     "cli"
@@ -27,6 +24,6 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=0.8"
+    "node": "0.10.13"
   }
 }
