@@ -2,9 +2,11 @@ var findSubs = require('../lib/words').findSubs,
   wordList = require('../lib/words').wordList,
   assert = require('assert'),
   sampleText = ["The", "sky"],
-  sampleTextZ = ["The", "Zyzzogeton"], // Depends upon the dictionary used.
+  sampleTextZ = ["The", "Zyzzogeton"],
+  sampleTextX = ["The", "///"],
   sampleTargets = {"sky": 1};
-  sampleTargetsZ = {"Zyzzogeton": 1};
+  sampleTargetsZ = {"Zyzzogeton": 1},
+  sampleTargetsX = {"///": 1}
 
 describe('findSubs', function() {
   it('should replace a word with the 7th word after it in the word list', function(done) {
@@ -21,6 +23,15 @@ describe('findSubs', function() {
 
     function cb (err, res) {
       assert.equal(res[1], "Aani")
+      done()
+    }
+  })
+
+  it('should ignore words it cannot find in the dictionary', function(done) {
+    findSubs(cb, sampleTextX, sampleTargetsX, wordList);
+
+    function cb (err, res) {
+      assert.equal(res[1], "///")
       done()
     }
   })
