@@ -12,8 +12,7 @@ function transformText (cb, text) {
     findSubs(waterfall, taggingRes.words, taggingRes.targets, wordList)
 
     function waterfall(err, res) {
-      res = res.join(" ");
-      res = cleanTransform(res);
+      res = rejoin(res);
 
       cb(err, res)
     }
@@ -22,17 +21,35 @@ function transformText (cb, text) {
 }
 
 /*
- * Brute force, stripping problematic spaces from punctuation.
- * TODO, implement a sentence join func.
+ * Punctuation aware join, WIP.
  */
-function cleanTransform(text) {
-  text = text.replace(/(\s\,)/g, ",")
-  text = text.replace(/(\s\.)/g, ".")
-  text = text.replace(/(\s\;)/g, ";")
-  text = text.replace(/(\s\?)/g, "?")
-  text = text.replace(/(\s\')/g, "'")  // bad
+function rejoin(resArray) {
+  var resString = "",
+    punc = {
+      ",": true,
+      ".": true,
+      ";": true,
+      "?": true,
+      "'": true
+    };
 
-  return text;
+  resArray.forEach(function(word, i) {
+    if (i == 0) {
+      resString = word;
+
+      return;
+    }
+
+    if (punc.hasOwnProperty(word)) {
+      resString = resString + word;
+
+      return;
+    }
+
+    resString = resString + " " + word;
+  })
+
+  return resString;
 }
 
 module.exports = {
